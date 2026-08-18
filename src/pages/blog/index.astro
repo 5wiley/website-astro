@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout title="Blog - Tom Wiley Cotton">
+  <h1>Blog</h1>
+  <ul>
+    {sortedPosts.map(post => (
+      <li>
+        <a href={`/blog/${post.id}`}>{post.data.title}</a>
+        - <time datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString()}
+          </time>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

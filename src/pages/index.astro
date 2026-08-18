@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+// Using a placeholder image as discussed
+const profilePic = "https://via.placeholder.com/150";
+---
+<BaseLayout title="About Me - Tom Wiley Cotton">
+  <h1>About Me</h1>
+  <img src={profilePic} alt="Tom Wiley Cotton" width="150" height="150" style="border-radius: 50%; margin-bottom: var(--pico-spacing);" />
+  <p>Hi, I'm Tom. Welcome to my personal website.</p>
+  <p>This is a basic framework built with Astro, hosted on GitHub Pages.</p>
+</BaseLayout>

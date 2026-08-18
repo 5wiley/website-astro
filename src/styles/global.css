@@ -1,0 +1,8 @@
+/* Pico.css variables to enforce light mode/black and white */
+:root {
+  --pico-font-family: system-ui, -apple-system, sans-serif;
+  --pico-background-color: #ffffff;
+  --pico-color: #000000;
+  --pico-primary: #000000;
+  --pico-primary-hover: #333333;
+}
