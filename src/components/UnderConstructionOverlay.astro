@@ -1,0 +1,46 @@
+---
+import defaultGif from './bill-dings.gif';
+
+// This is the component script area (frontmatter). We can define properties here.
+interface Props {
+  gifUrl?: string; // Optional custom GIF URL
+}
+
+// We set a default placeholder GIF if one isn't provided
+const {
+  gifUrl = defaultGif.src,
+} = Astro.props;
+---
+
+<!-- The HTML template for our component -->
+<div class="wip-container">
+  <!-- The overlay element containing the GIF -->
+  <div class="wip-overlay">
+    <img src={gifUrl} alt="Work In Progress" width="50" />
+  </div>
+
+  <!-- <slot /> tells Astro: "Put whatever this component wraps right here" -->
+  <slot />
+</div>
+
+<style>
+  /* CSS styles that are scoped ONLY to this component */
+  .wip-container {
+    position: relative; /* This is crucial: it creates a boundary for the absolute positioning of the child overlay */
+    display: inline-block; /* Wraps tightly around the element inside the slot */
+  }
+
+  .wip-overlay {
+    position: absolute; /* Positions the GIF relative to the .wip-container */
+    top: -15px; /* Adjusts the GIF to pop out slightly from the top */
+    right: -15px; /* Adjusts the GIF to pop out slightly from the right */
+    z-index: 10; /* Ensures the GIF appears ON TOP of the element */
+    pointer-events: none; /* Prevents the GIF from blocking clicks on the element underneath */
+    opacity: 0.9;
+  }
+
+  .wip-overlay img {
+    /* border-radius: 50%; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+  }
+</style>

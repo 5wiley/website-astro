@@ -1,11 +1,28 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WipOverlay from "../components/UnderConstructionOverlay.astro";
 // Using a placeholder image as discussed
 const profilePic = "https://via.placeholder.com/150";
+
+// Helper function import
+import { getEntry, render } from "astro:content";
+
+// Get specific entry
+const aboutMeEntry = await getEntry("pages", "about-me");
+if (!aboutMeEntry) {
+  throw new Error("no such entry, about-me");
+}
+
+// Prepare the content file to be used in the code
+const pageTitle = aboutMeEntry.data.title;
+const pageDescription = aboutMeEntry.data.description;
+const { Content } = await render(aboutMeEntry);
 ---
+
 <BaseLayout title="About Me - Tom Wiley Cotton">
-  <h1>About Me</h1>
-  <img src={profilePic} alt="Tom Wiley Cotton" width="150" height="150" style="border-radius: 50%; margin-bottom: var(--pico-spacing);" />
-  <p>Hi, I'm Tom. Welcome to my personal website.</p>
-  <p>This is a basic framework built with Astro, hosted on GitHub Pages.</p>
+  <h1>{pageTitle}</h1>
+  <p>{pageDescription}</p>
+  <div class="markdown-content">
+    <Content />
+  </div>
 </BaseLayout>
