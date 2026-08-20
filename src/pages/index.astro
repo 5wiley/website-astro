@@ -8,21 +8,21 @@ const profilePic = "https://via.placeholder.com/150";
 import { getEntry, render } from "astro:content";
 
 // Get specific entry
-const aboutMeEntry = await getEntry("pages", "about-me");
+const aboutMeEntry = await getEntry("modules", "about-me");
 if (!aboutMeEntry) {
   throw new Error("no such entry, about-me");
 }
 
 // Prepare the content file to be used in the code
-const pageTitle = aboutMeEntry.data.title;
-const pageDescription = aboutMeEntry.data.description;
-const { Content } = await render(aboutMeEntry);
+// const pageTitle = aboutMeEntry.data.title;
+// const pageDescription = aboutMeEntry.data.description;
+const { Content: AboutMe } = await render(aboutMeEntry);
 ---
 
 <BaseLayout title="About Me - Tom Wiley Cotton">
-  <h1>{pageTitle}</h1>
-  <p>{pageDescription}</p>
+  <h1>{aboutMeEntry.data.title}</h1>
+  <p>{aboutMeEntry.data.description}</p>
   <div class="markdown-content">
-    <Content />
+    <AboutMe />
   </div>
 </BaseLayout>

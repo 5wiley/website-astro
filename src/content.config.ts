@@ -20,7 +20,7 @@ const projectsCollection = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
     link: z.string().url().optional(),
-    
+
     // Flexible Thumbnail Options
     thumbnail: z.object({
       local: image().optional(), // Picture stored in the file tree
@@ -39,8 +39,18 @@ const pagesCollection = defineCollection({
   })
 });
 
-export const collections = { 
-  blog: blogCollection, 
-  projects: projectsCollection, 
-  pages: pagesCollection 
+// 4. Modules Collection
+const modulesCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/modules" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+  })
+});
+
+export const collections = {
+  blog: blogCollection,
+  projects: projectsCollection,
+  pages: pagesCollection,
+  modules: modulesCollection
 };
