@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+const { project } = Astro.props;
+const { title, date, tags, link } = project.data;
+const { Content } = await render(project);
+---
+
+<article class="project-title">
+    <h3>{title}</h3>
+    <p class="date">{date.toDateString()}</p>
+    <div class="markdown-content">
+        <Content />
+    </div>
+    <a href={link}> Read more</a>
+</article>
+
+<style>
+    .project-title {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5rem;
+        background: #fff;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .project-title:hover {
+        transform: translateY(-5px);
+    }
+</style>

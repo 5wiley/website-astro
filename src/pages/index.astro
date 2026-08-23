@@ -1,17 +1,23 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WipOverlay from "../components/UnderConstructionOverlay.astro";
-// Using a placeholder image as discussed
+import ProjectTiles from "../components/mono-karla/ProjectTiles.astro";
 const profilePic = "https://via.placeholder.com/150";
 
 // Helper function import
 import { getEntry, render } from "astro:content";
+import { getEntries } from "astro:content";
+import { getCollection } from "astro:content";
+import { config } from "astro:schema";
 
 // Get specific entry
 const aboutMeEntry = await getEntry("modules", "about-me");
 if (!aboutMeEntry) {
   throw new Error("no such entry, about-me");
 }
+
+// Get project entries
+const allProjects = await getCollection("projects");
 
 // Prepare the content file to be used in the code
 // const pageTitle = aboutMeEntry.data.title;
@@ -20,9 +26,32 @@ const { Content: AboutMe } = await render(aboutMeEntry);
 ---
 
 <BaseLayout title="About Me - Tom Wiley Cotton">
-  <h1>{aboutMeEntry.data.title}</h1>
-  <p>{aboutMeEntry.data.description}</p>
-  <div class="markdown-content">
-    <AboutMe />
-  </div>
+  <section class="about-section">
+    <h1>{aboutMeEntry.data.title}</h1>
+    <p>{aboutMeEntry.data.description}</p>
+    <div class="markdown-content">
+      <AboutMe />
+    </div>
+  </section>
+
+  <section class="project-selection">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      {allProjects.map((project) => <ProjectTiles project={project} />)}
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .project-selection {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeate(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+</style>

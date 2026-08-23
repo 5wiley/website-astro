@@ -19,7 +19,7 @@ const projectsCollection = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
-    link: z.string().url().optional(),
+    link: z.string().optional(),
 
     // Flexible Thumbnail Options
     thumbnail: z.object({
