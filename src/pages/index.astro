@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import WipOverlay from "../components/UnderConstructionOverlay.astro";
 import ProjectTiles from "../components/mono-karla/ProjectTiles.astro";
 import BigHeader from "../components/mono-karla/BigHeader.astro";
+import P5Background from "../components/P5Background.astro";
 const profilePic = "https://via.placeholder.com/150";
 
 // Helper function import
@@ -27,6 +28,7 @@ const { Content: AboutMe } = await render(aboutMeEntry);
 ---
 
 <BaseLayout title="About Me - Tom Wiley Cotton">
+  <P5Background />
   <section class="big-header">
     <BigHeader />
   </section>
