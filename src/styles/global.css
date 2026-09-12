@@ -1,6 +1,10 @@
-@import url('/fonts/IosevkaSlab/IosevkaSlab.css');
 @import url('/fonts/PkgWebFont-Iosevka-34.8.1/Iosevka.css');
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body.scrolled {
+  background-color: orange;
+}
 
 /* Pico.css variables to enforce light mode/black and white */
 :root {
@@ -11,7 +15,3 @@
   --pico-primary: #000000;
   --pico-primary-hover: #333333;
 }
-
-/* .font-mono {
-  font-family: 'Iosevka Slab Web', monospace;
-} */
