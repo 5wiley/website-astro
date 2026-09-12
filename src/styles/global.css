@@ -1,12 +1,10 @@
 @import url('/fonts/IosevkaSlab/IosevkaSlab.css');
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
 
-/* @import url('/fonts/Karla/Karla.css'); */
-
 /* Pico.css variables to enforce light mode/black and white */
 :root {
-  /* --pico-font-family: system-ui, -apple-system, sans-serif; */
   --pico-font-family: Karla, sans-serif;
+  /* --pico-font-family: 'Iosevka Slab Web', serif; */
   --pico-background-color: #ffffff;
   --pico-color: #000000;
   --pico-primary: #000000;
