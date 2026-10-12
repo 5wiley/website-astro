@@ -5,17 +5,42 @@
 <div id="p5-bg-container"></div>
 
 <!-- Load p5.js from CDN -->
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" defer></script>
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+  defer></script>
 
 <script>
-  window.addEventListener('load', () => {
+  const updateScroll = () => {
+    const container = document.getElementById("p5-bg-container");
+    const isScrolledUp = window.scrollY < 5;
+    if (isScrolledUp) {
+      document.body.classList.add("scrolled");
+      container?.classList.add("revealed");
+    } else {
+      document.body.classList.remove("scrolled");
+      container?.classList.remove("revealed");
+    }
+  };
+
+  window.addEventListener("scroll", updateScroll, { passive: true });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateScroll);
+  } else {
+    updateScroll();
+  }
+
+  window.addEventListener("load", () => {
+    updateScroll();
+
     const sketch = (p) => {
       let particles = [];
 
       p.setup = () => {
         const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent('p5-bg-container');
-        
+        canvas.parent("p5-bg-container");
+
         // Initialize some floating particles
         for (let i = 0; i < 50; i++) {
           particles.push({
@@ -23,7 +48,7 @@
             y: p.random(p.height),
             vx: p.random(-0.5, 0.5),
             vy: p.random(-0.5, 0.5),
-            size: p.random(20, 60)
+            size: p.random(20, 60),
           });
         }
       };
@@ -32,7 +57,7 @@
         // Use clear() instead of background() to keep it transparent.
         // This ensures any background colors on the body (like your orange scroll effect) remain visible!
         p.clear();
-        
+
         p.noStroke();
         // A subtle blueish color with some transparency
         p.fill(100, 150, 200, 60);
@@ -40,11 +65,11 @@
         for (let pt of particles) {
           pt.x += pt.vx;
           pt.y += pt.vy;
-          
+
           // Bounce off edges
           if (pt.x < 0 || pt.x > p.width) pt.vx *= -1;
           if (pt.y < 0 || pt.y > p.height) pt.vy *= -1;
-          
+
           p.ellipse(pt.x, pt.y, pt.size);
         }
       };
@@ -68,5 +93,12 @@
     height: 100vh;
     z-index: -1; /* Places the canvas behind your content */
     pointer-events: none; /* Allows clicks to pass through to links and text */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  #p5-bg-container.revealed,
+  :global(body.scrolled) #p5-bg-container {
+    opacity: 1;
   }
 </style>
