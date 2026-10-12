@@ -9,29 +9,114 @@ const { title } = dropdown.data;
 const { Content } = await render(dropdown);
 ---
 
-<article class="dropdown-info">
-    <h3>{title}</h3>
-    <div class="markdown-content">
+<details class="dropdown-info">
+    <summary class="dropdown-title">
+        <span>{title}</span>
+        <svg
+            class="dropdown-chevron"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+        >
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </summary>
+    <div class="dropdown-body markdown-content">
         <Content />
     </div>
-</article>
+</details>
 
 <style>
-    .project-title {
+    .dropdown-info {
         border: 1px solid #ddd;
         border-radius: 8px;
-        padding: 1.5rem;
         background: #fff;
-
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        font-family: "Iosevka", monospace;
+        margin-bottom: 1.25rem;
+        overflow: hidden;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    /* .h3 {
-        font-family: Iosevka, monospace;
-    } */
-    .project-title:hover {
-        transform: translateY(-5px);
+
+    .dropdown-info:hover {
+        border-color: #bbb;
+    }
+
+    .dropdown-info[open] {
+        border-color: #aaa;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .dropdown-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        font-family: "Iosevka", monospace;
+        font-size: 1.15rem;
+        font-weight: 600;
+        line-height: 1.4;
+        cursor: pointer;
+        user-select: none;
+        list-style: none;
+        color: #000;
+        background: #fff;
+        margin-bottom: 0 !important;
+        transition: background-color 0.15s ease;
+    }
+
+    /* Remove browser default summary marker */
+    .dropdown-title::-webkit-details-marker {
+        display: none;
+    }
+
+    .dropdown-title::marker {
+        display: none;
+        content: "";
+    }
+
+    /* Suppress Pico CSS default details summary::after icon */
+    .dropdown-title::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .dropdown-title:hover {
+        background-color: #f8f8f8;
+    }
+
+    .dropdown-title:focus-visible {
+        outline: 2px solid #000;
+        outline-offset: -2px;
+    }
+
+    .dropdown-chevron {
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+        margin-left: 0.5rem;
+        color: #555;
+    }
+
+    .dropdown-info[open] > .dropdown-title {
+        border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-info[open] > .dropdown-title .dropdown-chevron {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-body {
+        padding: 1.25rem;
+        background-color: #fafafa;
+        line-height: 1.6;
+    }
+
+    .dropdown-body :global(p:last-child) {
+        margin-bottom: 0;
     }
 </style>
