@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+interface Props {
+    dropdown: CollectionEntry<"dropdowns">;
+}
+const { dropdown } = Astro.props;
+const { title } = dropdown.data;
+const { Content } = await render(dropdown);
+---
+
+<article class="dropdown-info">
+    <h3>{title}</h3>
+    <div class="markdown-content">
+        <Content />
+    </div>
+</article>
+
+<style>
+    .project-title {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5rem;
+        background: #fff;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-family: "Iosevka", monospace;
+    }
+    /* .h3 {
+        font-family: Iosevka, monospace;
+    } */
+    .project-title:hover {
+        transform: translateY(-5px);
+    }
+</style>

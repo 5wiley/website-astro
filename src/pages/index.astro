@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WipOverlay from "../components/UnderConstructionOverlay.astro";
+import DropdownInfo from "../components/mono-karla/DropdownInfo.astro";
 import ProjectTiles from "../components/mono-karla/ProjectTiles.astro";
 import BigHeader from "../components/mono-karla/BigHeader.astro";
 import P5Background from "../components/P5Background.astro";
@@ -19,6 +20,7 @@ if (!aboutMeEntry) {
 }
 
 // Get project entries
+const allDropdowns = await getCollection("dropdowns");
 const allProjects = await getCollection("projects");
 
 // Prepare the content file to be used in the code
@@ -31,6 +33,13 @@ const { Content: AboutMe } = await render(aboutMeEntry);
   <P5Background />
   <section class="big-header">
     <BigHeader />
+  </section>
+
+  <section class="dropdowns-info">
+    <h2>My Projects</h2>
+    <div class="dropdown">
+      {allDropdowns.map((dropdown) => <DropdownInfo dropdown={dropdown} />)}
+    </div>
   </section>
 
   <section class="about-section">

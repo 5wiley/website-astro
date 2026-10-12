@@ -11,6 +11,15 @@ const blogCollection = defineCollection({
   })
 });
 
+// 2. Dropdowns Collection
+const dropdownsCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/dropdowns" }),
+  // Astro's image() helper validates local images
+  schema: ({ image }) => z.object({
+    title: z.string()
+  })
+});
+
 // 2. Projects Collection
 const projectsCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
@@ -50,6 +59,7 @@ const modulesCollection = defineCollection({
 
 export const collections = {
   blog: blogCollection,
+  dropdowns: dropdownsCollection,
   projects: projectsCollection,
   pages: pagesCollection,
   modules: modulesCollection
