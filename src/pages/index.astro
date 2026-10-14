@@ -20,7 +20,13 @@ if (!aboutMeEntry) {
 }
 
 // Get project entries
-const allDropdowns = await getCollection("dropdowns");
+const dropdownOrder = ["about-me", "masters-project"];
+
+const allDropdowns = (await getCollection("dropdowns")).sort((a, b) => {
+  const indexA = dropdownOrder.indexOf(a.id);
+  const indexB = dropdownOrder.indexOf(b.id);
+  return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+});
 const allProjects = await getCollection("projects");
 
 // Prepare the content file to be used in the code
@@ -36,19 +42,18 @@ const { Content: AboutMe } = await render(aboutMeEntry);
   </section>
 
   <section class="dropdowns-info">
-    <h2>My Projects</h2>
     <div class="dropdown">
       {allDropdowns.map((dropdown) => <DropdownInfo dropdown={dropdown} />)}
     </div>
   </section>
 
-  <section class="about-section">
+  <!-- <section class="about-section">
     <h1>{aboutMeEntry.data.title}</h1>
     <p>{aboutMeEntry.data.description}</p>
     <div class="markdown-content">
       <AboutMe />
     </div>
-  </section>
+  </section> -->
 
   <section class="project-selection">
     <h2>My Projects</h2>
